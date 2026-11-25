@@ -1,0 +1,273 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#080000">
+<title>DECRYPTING</title>
+<style>
+*{box-sizing:border-box}
+:root{--red:#ed1028;--dark:#390810;--muted:#82444b}
+body{
+ margin:0;background:#070304;color:#e9dfe0;
+ font-family:Consolas,monospace;min-height:100vh;
+}
+canvas{position:fixed;inset:0;width:100%;height:100%;opacity:.28;pointer-events:none}
+main{position:relative;z-index:1;padding:14px;max-width:1500px;margin:auto}
+header{
+ display:flex;justify-content:space-between;align-items:center;
+ border-bottom:1px solid #51101a;padding:12px 4px;
+ font-size:10px;letter-spacing:2px;color:#a66a70;
+}
+.brand{color:var(--red);font-weight:bold;font-size:13px}
+.live{color:#f22;animation:blink 1s infinite}
+@keyframes blink{50%{opacity:.2}}
+.layout{
+ display:grid;grid-template-columns:230px minmax(0,1fr) 230px;
+ gap:12px;margin-top:14px;
+}
+.column{display:flex;flex-direction:column;gap:12px}
+.box{
+ border:1px solid #451019;background:rgba(13,3,5,.94);
+ padding:13px;position:relative;overflow:hidden;
+}
+.heading{
+ color:var(--red);font-size:10px;letter-spacing:2px;
+ padding-bottom:10px;border-bottom:1px solid #401019;
+ margin-bottom:12px;
+}
+.metric{display:flex;justify-content:space-between;
+ gap:8px;font-size:10px;margin:13px 0}
+.muted{color:var(--muted)}
+.red{color:#f22}
+.center{
+ min-height:530px;display:flex;flex-direction:column;
+ justify-content:center;align-items:center;text-align:center;
+ background:radial-gradient(ellipse,#310810 0%,#120407 48%,#080304 100%);
+ border:1px solid #68101d;position:relative;overflow:hidden;
+}
+.center:before{
+ content:"";position:absolute;inset:0;pointer-events:none;
+ background:repeating-linear-gradient(
+ transparent 0px,transparent 3px,rgba(255,0,30,.045) 4px);
+}
+.center:after{
+ content:"";position:absolute;left:0;right:0;height:2px;
+ background:linear-gradient(90deg,transparent,#e00022,transparent);
+ animation:scan 5s linear infinite;
+}
+@keyframes scan{from{top:0}to{top:100%}}
+.kicker{font-size:10px;color:#bd3445;letter-spacing:5px}
+h1{
+ font-size:clamp(35px,6vw,85px);letter-spacing:5px;
+ margin:22px 0 8px;color:#f3e9ea;
+ text-shadow:0 0 12px #ed1028,0 0 35px #9c0019;
+ animation:flicker 4s infinite;
+}
+@keyframes flicker{
+ 0%,92%,100%{opacity:1;transform:translateX(0)}
+ 93%{opacity:.5;transform:translateX(-3px)}
+ 95%{opacity:1;transform:translateX(3px)}
+}
+.sub{font-size:10px;color:#b52b3b;letter-spacing:4px}
+.progress{
+ width:78%;height:4px;background:#350b12;margin:28px 0 15px;
+}
+.progress i{
+ display:block;width:68%;height:100%;background:#ed1028;
+ box-shadow:0 0 15px #ed1028;animation:loading 6s infinite alternate;
+}
+@keyframes loading{to{width:96%}}
+.percent{font-size:32px;color:#f2dadd;text-shadow:0 0 15px red}
+.small{font-size:9px;color:#98535c;letter-spacing:2px;margin-top:8px}
+.graph{height:65px;display:flex;align-items:end;gap:4px}
+.graph i{flex:1;background:#a10b20;min-height:8%;animation:bars 1s infinite alternate}
+.graph i:nth-child(2n){animation-delay:.25s}
+.graph i:nth-child(3n){animation-delay:.5s}
+@keyframes bars{to{height:18%}}
+.bar{height:4px;background:#330c13;margin-top:7px}
+.bar i{display:block;height:100%;background:#d20e29}
+.terminal{
+ margin-top:13px;font-size:10px;line-height:2;
+ color:#a66c73;min-height:100px;overflow:hidden;
+}
+.terminal b{color:#f0263e}
+.bottom{
+ margin-top:13px;border:1px solid #451019;
+ padding:13px;display:flex;justify-content:space-between;
+ gap:10px;flex-wrap:wrap;font-size:9px;color:#91444d;
+ letter-spacing:2px;
+}
+@media(max-width:850px){
+ .layout{grid-template-columns:1fr 1fr}
+ .center{grid-column:1/-1;grid-row:1;min-height:420px}
+ .column{display:contents}
+ .box{min-width:0}
+}
+@media(max-width:430px){
+ main{padding:8px}
+ header{font-size:8px;letter-spacing:1px}
+ .layout{gap:7px}
+ .box{padding:10px}
+ .metric{font-size:9px}
+ .heading{font-size:9px}
+ .bottom{font-size:8px}
+}
+</style>
+</head>
+<body>
+<canvas id="background"></canvas>
+<main>
+<header>
+ <span class="brand">◈ DECRYPTING</span>
+ <span>CORE SYSTEM / 09</span>
+ <span class="live">● LIVE SIGNAL</span>
+</header>
+
+<div class="layout">
+<div class="column">
+ <section class="box">
+  <div class="heading">SYSTEM OVERVIEW</div>
+  <div class="metric"><span class="muted">CORE STATUS</span><b class="red">ACTIVE</b></div>
+  <div class="metric"><span class="muted">SIGNAL</span><b>UNKNOWN</b></div>
+  <div class="metric"><span class="muted">ENCRYPTION</span><b class="red">LOCKED</b></div>
+  <div class="metric"><span class="muted">INTEGRITY</span><b>94.72%</b></div>
+ </section>
+ <section class="box">
+  <div class="heading">SIGNAL ANALYSIS</div>
+  <div class="metric"><span class="muted">FREQUENCY</span><b class="red">09.47 MHz</b></div>
+  <div class="metric"><span class="muted">AMPLITUDE</span><b>0.847</b></div>
+  <div class="graph">
+   <i style="height:40%"></i><i style="height:80%"></i>
+   <i style="height:30%"></i><i style="height:95%"></i>
+   <i style="height:60%"></i><i style="height:75%"></i>
+   <i style="height:45%"></i><i style="height:100%"></i>
+   <i style="height:55%"></i><i style="height:85%"></i>
+  </div>
+ </section>
+ <section class="box">
+  <div class="heading">PROCESS MONITOR</div>
+  <div class="metric"><span>PROCESS 01</span><span class="red">ACTIVE</span></div>
+  <div class="bar"><i style="width:78%"></i></div>
+  <div class="metric"><span>PROCESS 02</span><span class="red">RUNNING</span></div>
+  <div class="bar"><i style="width:49%"></i></div>
+  <div class="metric"><span>PROCESS 03</span><span>WAITING</span></div>
+  <div class="bar"><i style="width:26%"></i></div>
+ </section>
+</div>
+
+<section class="center">
+ <div class="kicker">UNKNOWN SOURCE DETECTED</div>
+ <h1>DECRYPTING</h1>
+ <div class="sub">DIGITAL SIGNAL ANALYSIS</div>
+ <div class="progress"><i></i></div>
+ <div class="percent" id="percent">68.42%</div>
+ <div class="small">PLEASE WAIT // PROCESSING DATA</div>
+ <div style="margin-top:35px;color:#80323d;font-size:10px;line-height:2">
+  <div>CHANNEL : <span class="red">UNIDENTIFIED</span></div>
+  <div>PROTOCOL : <span class="red">OMEGA</span></div>
+  <div>RESPONSE : <span class="red">PENDING</span></div>
+ </div>
+</section>
+
+<div class="column">
+ <section class="box">
+  <div class="heading">NETWORK MONITOR</div>
+  <div class="metric"><span class="muted">TRAFFIC</span><b class="red">HIGH</b></div>
+  <div class="metric"><span class="muted">DATA STREAM</span><b>ACTIVE</b></div>
+  <div class="metric"><span class="muted">LATENCY</span><b>018 MS</b></div>
+  <div class="metric"><span class="muted">SOURCE ID</span><b>0X-77</b></div>
+ </section>
+ <section class="box">
+  <div class="heading">ACTIVITY MONITOR</div>
+  <div class="graph">
+   <i style="height:70%"></i><i style="height:35%"></i>
+   <i style="height:90%"></i><i style="height:50%"></i>
+   <i style="height:100%"></i><i style="height:65%"></i>
+   <i style="height:30%"></i><i style="height:80%"></i>
+   <i style="height:45%"></i><i style="height:95%"></i>
+  </div>
+  <div class="metric"><span class="muted">ACTIVITY</span><b class="red">94.7%</b></div>
+ </section>
+ <section class="box">
+  <div class="heading">ALERT CENTER</div>
+  <div class="metric"><span class="red">●</span><span>UNKNOWN SIGNAL</span></div>
+  <div class="metric"><span class="red">●</span><span>CORE INSTABILITY</span></div>
+  <div class="metric"><span class="red">●</span><span>DATA FRAGMENT</span></div>
+ </section>
+</div>
+</div>
+
+<section class="box" style="margin-top:13px">
+ <div class="heading">LIVE EVENT LOG // SYSTEM MESSAGES</div>
+ <div class="terminal" id="logs">
+  <b>[00:00:01]</b> INITIALIZING DIGITAL INTERFACE...<br>
+  <b>[00:00:02]</b> UNKNOWN SIGNAL DETECTED...<br>
+  <b>[00:00:03]</b> ANALYZING ENCRYPTED STREAM...<br>
+  <b>[00:00:04]</b> CORE STATUS: ACTIVE...
+ </div>
+</section>
+
+<div class="bottom">
+ <span>DECRYPTING // PROJECT OMEGA</span>
+ <span>VISUAL SYSTEM SIMULATION</span>
+ <span id="clock">00:00:00</span>
+</div>
+</main>
+
+<script>
+const canvas=document.getElementById("background");
+const ctx=canvas.getContext("2d");
+let w,h,columns,drops;
+function resize(){
+ w=canvas.width=innerWidth;
+ h=canvas.height=innerHeight;
+ columns=Math.floor(w/17);
+ drops=Array(columns).fill(0);
+}
+resize();
+addEventListener("resize",resize);
+const symbols="0123456789ABCDEF";
+function draw(){
+ ctx.fillStyle="rgba(7,3,4,.2)";
+ ctx.fillRect(0,0,w,h);
+ ctx.font="12px monospace";
+ for(let i=0;i<columns;i++){
+  ctx.fillStyle=Math.random()>.94?"#e00028":"#64101c";
+  ctx.fillText(symbols[Math.floor(Math.random()*symbols.length)],i*17,drops[i]*15);
+  if(drops[i]*15>h&&Math.random()>.975)drops[i]=0;
+  drops[i]++;
+ }
+}
+setInterval(draw,45);
+
+const events=[
+"UNKNOWN SIGNAL DETECTED",
+"ANALYZING DIGITAL STREAM",
+"CORE RESPONSE RECEIVED",
+"ENCRYPTED CHANNEL FOUND",
+"UNIDENTIFIED DATA PATTERN",
+"MONITORING SYSTEM ACTIVITY",
+"INTERFACE STATUS: ACTIVE",
+"PROCESSING SIGNAL FRAGMENTS",
+"CHANNEL RESPONSE PENDING",
+"CORE ANALYSIS IN PROGRESS"
+];
+setInterval(()=>{
+ const time=new Date().toLocaleTimeString("pt-BR");
+ const log=document.getElementById("logs");
+ log.innerHTML="<b>["+time+"]</b> "+events[Math.floor(Math.random()*events.length)]+"...<br>"+log.innerHTML;
+ log.innerHTML=log.innerHTML.split("<br>").slice(0,7).join("<br>");
+},1300);
+
+let progress=68.42;
+setInterval(()=>{
+ progress+=Math.random()*.16;
+ if(progress>99.8)progress=68.42;
+ document.getElementById("percent").textContent=progress.toFixed(2)+"%";
+ document.getElementById("clock").textContent=new Date().toLocaleTimeString("pt-BR");
+},800);
+</script>
+</body>
+</html>
