@@ -8,6 +8,29 @@
 <title>DECRYPTING // CORE</title>
 
 <style>
+  #transferMessage{
+  position:fixed;
+  inset:0;
+  z-index:10;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:rgba(0,0,0,.94);
+  color:#ff2020;
+  font-size:clamp(28px,7vw,75px);
+  font-weight:bold;
+  text-align:center;
+  text-transform:lowercase;
+  text-shadow:0 0 15px red,0 0 35px darkred;
+  opacity:0;
+  visibility:hidden;
+  transition:opacity .5s;
+  letter-spacing:3px;
+}
+#transferMessage.show{
+  opacity:1;
+  visibility:visible;
+}
 *{box-sizing:border-box}
 :root{
   --red:#ff2020;
@@ -19,6 +42,7 @@
   --muted:#8b4545;
 }
 body{
+  Transferência concluída.
   margin:0;
   background:var(--bg);
   color:var(--red);
@@ -342,7 +366,9 @@ footer{
   <span id="date"></span>
 </footer>
 </main>
-
+setTimeout(()=>{
+  document.getElementById("transferMessage").classList.add("show");
+},1000);
 <script>
 const canvas=document.getElementById("rain");
 const ctx=canvas.getContext("2d");
